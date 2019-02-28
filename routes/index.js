@@ -104,4 +104,8 @@ router.get('/friends', function (req, res, next) {
    res.render('friends');
 });
 
+router.get('/about', function (req, res, next) {
+    res.render('about');
+})
+
 module.exports = router;

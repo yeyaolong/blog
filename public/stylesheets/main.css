@@ -301,3 +301,12 @@ section.articles {
 .friends li a:hover {
     color: #183D8E;
 }
+
+/* 关于博客 */
+.about h2 {
+    text-align: center;
+}
+
+.about p {
+    text-indent: 2em;
+}
