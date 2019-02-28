@@ -216,3 +216,33 @@ aside ul li a:hover {
     animation: move 1.8s;
     animation-fill-mode: forwards;
 }
+
+/* 文章内容样式 */
+section.articles {
+    border: 1px solid #c0c0c0;
+    min-height: 468px;
+    padding: 0 15px;
+}
+
+.main-articles-title {
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.main-articles-title h2 {
+    text-align: center;
+}
+
+.main-articles-title p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.main-articles-title p span {
+    padding: 0 10px;
+}
+
+.main-articles-content p {
+    text-header: 2em;
+    font-size: 16px;
+    line-height: 1.8em;
+}

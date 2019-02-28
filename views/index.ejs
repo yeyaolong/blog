@@ -9,14 +9,18 @@
         <ul>
           <% for (var i = 0, max = articles.length; i < max; i++) {%>
           <li class="main-articles-item">
-            <h2><a href=""><%= articles[i].articleTitle %></a></h2>
-            <section class="main-articles-item-des">
-              <p>
-                <span>作者: <%= articles[i].articleAuthor %></span>
-                <span>发布时间: <%= articles[i].articleTime %></span>
-                <span>浏览量: <%= articles[i].articleClick %></span>
-              </p>
-            </section>
+            <a href="/articles/<%= articles[i].articleID%>">
+              <h2>
+                  <%= articles[i].articleTitle %>
+              </h2>
+              <section class="main-articles-item-des">
+                <p>
+                  <span>作者: <%= articles[i].articleAuthor %></span>
+                  <span>发布时间: <%= articles[i].articleTime %></span>
+                  <span>浏览量: <%= articles[i].articleClick %></span>
+                </p>
+              </section>
+            </a>
           </li>
           <% } %>
         </ul>

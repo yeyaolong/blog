@@ -40,15 +40,32 @@ router.post('/login', function (req, res, next) {
 router.get('/', function (req, res, next) {
    var query = `select * FROM article`;
    mysql.query(query, function (err, rows, fields) {
-      var articles = rows;
+       var articles = rows;
        articles.forEach(function (ele) {
           var year = ele.articleTime.getFullYear();
-          var month = ele.articleTime.getMonth() + 1 > 10 ? "0" + (ele.articleTime.getMonth() + 1) : ele.articleTime.getMonth() + 1;
+          var month = ele.articleTime.getMonth() + 1 < 10 ? "0" + (ele.articleTime.getMonth() + 1) : ele.articleTime.getMonth() + 1;
           var day = ele.articleTime.getDate();
           ele.articleTime = year + "-" + month + "-" + day;
        });
-      res.render("index", { articles: articles});
+       res.render("index", { articles: articles});
    });
 });
 
+/* 文章内容 */
+router.get('/articles/:articleID', function (req, res, next) {
+   var articleID = req.params.articleID;
+   var query = `SELECT * FROM article WHERE articleID = ${mysql.escape(articleID)}`;
+   mysql.query(query, function (err, rows, fields) {
+      if (err) {
+          console.log(err);
+          return;
+      }
+      var article = rows[0];
+      var year = article.articleTime.getFullYear();
+      var month = article.articleTime.getMonth() + 1 < 10 ? '0' + (article.articleTime.getMonth() + 1) : article.articleTime.getMonth() + 1;
+      var day = article.articleTime.getDate() < 10 ?  '0' + (article.articleTime.getDate()) : article.articleTime.getDate();
+      article.articleTime = year + '-' + month + '-' + day;
+      res.render('article', {article: article});
+   });
+});
 module.exports = router;
