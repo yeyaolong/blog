@@ -100,4 +100,8 @@ router.post('/edit', function (req, res, next) {
     });
 });
 
+router.get('/friends', function (req, res, next) {
+   res.render('friends');
+});
+
 module.exports = router;

@@ -285,3 +285,19 @@ section.articles {
 .text-group label {
     vertical-align: top;
 }
+
+/* 友情链接 */
+.friends h2 {
+    text-align: center;
+}
+
+.friends li {
+    float: left;
+    width: 25%;
+    height: 30px;
+    line-height: 30px;
+}
+
+.friends li a:hover {
+    color: #183D8E;
+}
