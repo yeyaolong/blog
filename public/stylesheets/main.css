@@ -329,3 +329,11 @@ section.articles {
     width: 100%;
     color: #fff;
 }
+
+span.modify {
+    float: right;
+}
+
+span.modify a:hover {
+    color: #183D8E;
+}
