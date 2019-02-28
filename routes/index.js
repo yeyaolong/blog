@@ -61,11 +61,21 @@ router.get('/articles/:articleID', function (req, res, next) {
           return;
       }
       var article = rows[0];
-      var year = article.articleTime.getFullYear();
-      var month = article.articleTime.getMonth() + 1 < 10 ? '0' + (article.articleTime.getMonth() + 1) : article.articleTime.getMonth() + 1;
-      var day = article.articleTime.getDate() < 10 ?  '0' + (article.articleTime.getDate()) : article.articleTime.getDate();
-      article.articleTime = year + '-' + month + '-' + day;
-      res.render('article', {article: article});
+      var query = `UPDATE article SET articleClick=articleClick + 1 WHERE articleID=${mysql.escape(articleID)}`;
+      mysql.query(query, function (err, rows, fields) {
+         if (err) {
+             console.log(err);
+             return;
+         }
+          var year = article.articleTime.getFullYear();
+          var month = article.articleTime.getMonth() + 1 < 10 ? '0' + (article.articleTime.getMonth() + 1) : article.articleTime.getMonth() + 1;
+          var day = article.articleTime.getDate() < 10 ?  '0' + (article.articleTime.getDate()) : article.articleTime.getDate();
+          article.articleTime = year + '-' + month + '-' + day;
+          res.render('article', {article: article});
+      });
    });
 });
+
+
+
 module.exports = router;
