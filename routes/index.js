@@ -28,6 +28,7 @@ router.post('/login', function (req, res, next) {
             // console.log('req.sessioin', req.session)
             // req.session.userSign = true
             // req.session.userID = user.authorID;
+            req.session.user = user
             res.redirect('/');
         } else {
             // 登录失败
@@ -38,7 +39,7 @@ router.post('/login', function (req, res, next) {
 
 /* 首页 */
 router.get('/', function (req, res, next) {
-   var query = `select * FROM article`;
+   var query = `select * FROM article ORDER BY articleTime DESC, articleID DESC`;
    mysql.query(query, function (err, rows, fields) {
        var articles = rows;
        articles.forEach(function (ele) {
@@ -78,7 +79,25 @@ router.get('/articles/:articleID', function (req, res, next) {
 
 /* 写文章页面 */
 router.get('/edit', function (req, res, next) {
-   res.render('edit', {});
+    if (req.session.user) {
+        res.render('edit');
+    }
+    // res.render('login', {message: ''});
+    res.redirect('/login');
+});
+
+router.post('/edit', function (req, res, next) {
+   var title = req.body.title;
+   var content = req.body.content;
+   var author = req.session.user.authorName;
+   var query = `INSERT article SET articleTitle=${mysql.escape(title)}, articleAuthor=${mysql.escape(author)}, articleContent=${mysql.escape(content)}, articleTime=CURDATE()`
+    mysql.query(query, function (err, rows, fields) {
+       if (err) {
+           console.log(err);
+           return;
+       }
+        res.render('edit', {});
+    });
 });
 
 module.exports = router;
