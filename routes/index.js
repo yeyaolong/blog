@@ -48,7 +48,7 @@ router.get('/', function (req, res, next) {
           var day = ele.articleTime.getDate();
           ele.articleTime = year + "-" + month + "-" + day;
        });
-       res.render("index", { articles: articles});
+       res.render("index", { articles: articles, user: req.session.user});
    });
 });
 
@@ -72,7 +72,7 @@ router.get('/articles/:articleID', function (req, res, next) {
           var month = article.articleTime.getMonth() + 1 < 10 ? '0' + (article.articleTime.getMonth() + 1) : article.articleTime.getMonth() + 1;
           var day = article.articleTime.getDate() < 10 ?  '0' + (article.articleTime.getDate()) : article.articleTime.getDate();
           article.articleTime = year + '-' + month + '-' + day;
-          res.render('article', {article: article});
+          res.render('article', {article: article, user: req.session.user});
       });
    });
 });
@@ -80,7 +80,7 @@ router.get('/articles/:articleID', function (req, res, next) {
 /* 写文章页面 */
 router.get('/edit', function (req, res, next) {
     if (req.session.user) {
-        res.render('edit');
+        res.render('edit', {user: req.session.user});
     }
     // res.render('login', {message: ''});
     res.redirect('/login');
@@ -101,11 +101,16 @@ router.post('/edit', function (req, res, next) {
 });
 
 router.get('/friends', function (req, res, next) {
-   res.render('friends');
+   res.render('friends', {user: req.session.user});
 });
 
 router.get('/about', function (req, res, next) {
-    res.render('about');
+    res.render('about', {user: req.session.user});
+})
+
+router.get('/logout',function (req, res, next) {
+    req.session.user = null;
+    res.redirect('/')
 })
 
 module.exports = router;
