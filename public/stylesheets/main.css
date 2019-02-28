@@ -1,3 +1,4 @@
+/* 公共样式 */
 a {
     text-decoration: none;
     color: #000;
@@ -22,7 +23,7 @@ ul, li {
 body {
     background: #f0f0f0;
 }
-
+/* 登录界面样式 */
 .login, .login body {
     height: 100%;
     width: 100%;
@@ -114,4 +115,104 @@ footer p {
     bottom: 20px;
     display: block;
     width: 100%;
+}
+/* 首页样式 */
+header {
+    height: 130px;
+    background-image: url("../img/water.jpg");
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    line-height: 35px;
+    padding: 50px 0;
+    word-spacing: 0.5em;
+}
+
+.main {
+    padding: 0 15px;
+    width: 1170px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+aside {
+    width:180px;
+    padding: 9px;
+    border: 1px solid #c0c0c0;
+    float:left;
+    min-height: 450px;
+    height: 100%;
+}
+
+aside ul li {
+    list-style: none;
+    height: 30px;
+    text-align: center;
+}
+
+aside ul li a {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+aside ul li a:hover {
+    color: #183D8E;
+}
+
+.main-aside-avatar {
+    margin-bottom: 10px;
+}
+
+.main-aside-avatar img {
+    width: 100%;
+}
+
+.main-articles {
+    margin-left: 220px;
+}
+
+.main-articles-item {
+    height: 80px;
+    border: 1px solid #c0c0c0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.main-articles-item:last-child {
+    margin-bottom: 0;
+}
+
+.main-articles-item h2 {
+    margin:0;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.main-articles-items-des span {
+    padding-right: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+@keyframes move {
+    from {
+        transform: translate(0px, 0);
+    }
+    to {
+        transform: translate(50px, 0);
+    }
+}
+
+.main-articles-item:hover {
+    animation: move 1.8s;
+    animation-fill-mode: forwards;
 }

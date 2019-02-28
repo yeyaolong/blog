@@ -5,11 +5,6 @@ var router = express.Router();
 
 
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 /* 登录页 */
 router.get('/login', function (req, res, next) {
   res.render('login', {message: ''});
@@ -22,8 +17,6 @@ router.post('/login', function (req, res, next) {
     hash.update(password);
     password = hash.digest('hex');
     var query = 'SELECT * FROM author WHERE authorName=' + mysql.escape(name) + ' AND authorPassword=' + mysql.escape(password);
-    // var query = `SELECT * FROM author WHERE authorName=  ${name} AND authorPassword= ${password}`
-    console.log(query);
     mysql.query(query, function (err, rows, fields) {
         if (err) {
             console.error(err);
@@ -41,6 +34,21 @@ router.post('/login', function (req, res, next) {
             res.render("login", {"code": 200, "message": "用户名或密码错误", "data": {}})
         }
     });
+});
+
+/* 首页 */
+router.get('/', function (req, res, next) {
+   var query = `select * FROM article`;
+   mysql.query(query, function (err, rows, fields) {
+      var articles = rows;
+       articles.forEach(function (ele) {
+          var year = ele.articleTime.getFullYear();
+          var month = ele.articleTime.getMonth() + 1 > 10 ? "0" + (ele.articleTime.getMonth() + 1) : ele.articleTime.getMonth() + 1;
+          var day = ele.articleTime.getDate();
+          ele.articleTime = year + "-" + month + "-" + day;
+       });
+      res.render("index", { articles: articles});
+   });
 });
 
 module.exports = router;
