@@ -76,6 +76,9 @@ router.get('/articles/:articleID', function (req, res, next) {
    });
 });
 
-
+/* 写文章页面 */
+router.get('/edit', function (req, res, next) {
+   res.render('edit', {});
+});
 
 module.exports = router;
