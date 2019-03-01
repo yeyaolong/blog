@@ -39,8 +39,13 @@ router.post('/login', function (req, res, next) {
 
 /* 首页 */
 router.get('/', function (req, res, next) {
+    var page = req.query.page || 1;
+    var start = (page - 1) * 8;
+    var end = page * 8;
+    var queryContent = 'SELECT COUNT(*) AS articleNum FROM article'
+    var queryArticle = `SELECT * FROM article ORDER BY articleID DESC LIMIT ${start}, ${end}`;
    var query = `select * FROM article ORDER BY articleTime DESC, articleID DESC`;
-   mysql.query(query, function (err, rows, fields) {
+   mysql.query(queryArticle, function (err, rows, fields) {
        var articles = rows;
        articles.forEach(function (ele) {
           var year = ele.articleTime.getFullYear();
@@ -48,7 +53,11 @@ router.get('/', function (req, res, next) {
           var day = ele.articleTime.getDate();
           ele.articleTime = year + "-" + month + "-" + day;
        });
-       res.render("index", { articles: articles, user: req.session.user});
+       mysql.query(queryContent, function (err, rows, fields) {
+          var articleNum = rows[0].articleNum;
+          var pageNum = Math.ceil(articleNum / 8);
+          res.render("index", { articles: articles, user: req.session.user, pageNum: pageNum, page: page});
+       });
    });
 });
 
