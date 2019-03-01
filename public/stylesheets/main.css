@@ -332,8 +332,18 @@ section.articles {
 
 span.modify {
     float: right;
+    margin-right: 16px;
 }
 
 span.modify a:hover {
     color: #183D8E;
 }
+
+span.delete {
+    float: right;
+}
+
+span.delete a:hover {
+    color: #183D8E;
+}
+

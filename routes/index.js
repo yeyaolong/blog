@@ -152,4 +152,16 @@ router.post("/modify/:articleID", function (req, res, next) {
    });
 });
 
+router.get("/delete/:articleID", function (req, res, next) {
+   var articleID = req.params.articleID;
+   var user = req.session.user;
+   var query = `DELETE FROM article WHERE articleID=${mysql.escape(articleID)}`;
+   if (!user) {
+       res.redirect("/login");
+   }
+   mysql.query(query, function (err, rows, fields) {
+      res.redirect("/");
+   });
+});
+
 module.exports = router;
